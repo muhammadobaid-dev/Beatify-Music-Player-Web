@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beatify — Hindi Music Player</title>
+  <link rel="shortcut icon" href="img/website_logo.png" />
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
+        </div>
+        <div class="brand-name">Beat<span>ify</span></div>
+      </div>
+
+      <nav class="nav-block">
+        <button class="nav-link active" data-view="home">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.5 3.25a.75.75 0 0 0-1 0L3.5 10.5V21a1 1 0 0 0 1 1h5v-6h5v6h5a1 1 0 0 0 1-1v-10.5l-8-7.25z"/></svg>
+          Home
+        </button>
+        <button class="nav-link" data-view="search">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10.5 3a7.5 7.5 0 015.9 12.1l4.25 4.25-1.4 1.4-4.25-4.25A7.5 7.5 0 1110.5 3zm0 2a5.5 5.5 0 100 11 5.5 5.5 0 000-11z"/></svg>
+          Search
+        </button>
+        <button class="nav-link" data-view="library">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h2v16H3V4zm4 0h2v16H7V4zm4 0h3l7 16h-3l-1.5-3.5H12L10.5 20H7.5L14.5 4H11zm5.2 9.5L14.3 7.8 12.4 13.5h3.8z"/></svg>
+          Your Library
+        </button>
+        <button class="nav-link" data-view="radio">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 8A1.5 1.5 0 003 9.5v9A1.5 1.5 0 004.5 20h15a1.5 1.5 0 001.5-1.5v-9A1.5 1.5 0 0019.5 8H9.4l8.7-4.35-.9-1.8L4.5 8zm3.5 8.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5zM14 12h5v2h-5v-2z"/></svg>
+          FM Radio
+        </button>
+        <button class="nav-link" data-view="premium">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7L12 16.8 5.7 20.6 8 13.6 2 9.2h7.6L12 2z"/></svg>
+          Premium
+        </button>
+      </nav>
+
+      <div class="sidebar-divider"></div>
+
+      <div class="playlist-mini">
+        <h4>Playlists</h4>
+        <button class="playlist-item" data-playlist="liked">Liked Songs</button>
+        <button class="playlist-item" data-playlist="bollywood">Bollywood Hits</button>
+        <button class="playlist-item" data-playlist="romantic">Romantic Vibes</button>
+        <button class="playlist-item" data-playlist="party">Party Anthems</button>
+        <button class="playlist-item" data-playlist="retro">Retro Classics</button>
+        <button class="playlist-item" data-playlist="punjabi">Punjabi Fire</button>
+        <button class="playlist-item" data-playlist="workout">Gym Motivation</button>
+        <button class="playlist-item" data-playlist="sad">Late Night Feels</button>
+      </div>
+
+      <div class="premium-banner" id="sidebarPremium">
+        <h3>Go Premium</h3>
+        <p>Ad-free · HQ audio · Offline</p>
+        <button class="btn-premium" data-view="premium">Try Free for 1 Month</button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      <header class="topbar">
+        <div class="nav-arrows">
+          <button class="nav-arrow" id="btnBack" title="Back" aria-label="Back">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 19l-7-7 7-7"/></svg>
+          </button>
+          <button class="nav-arrow" id="btnForward" title="Forward" aria-label="Forward">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8.5 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10.5 3a7.5 7.5 0 015.9 12.1l4.25 4.25-1.4 1.4-4.25-4.25A7.5 7.5 0 1110.5 3zm0 2a5.5 5.5 0 100 11 5.5 5.5 0 000-11z"/></svg>
+          <input type="search" id="globalSearch" placeholder="Search Hindi songs, artists, albums..." autocomplete="off" />
+        </div>
+        <div class="topbar-actions">
+          <button class="btn-pill solid" data-view="premium" id="topPremiumBtn">Upgrade</button>
+          <div class="avatar" id="userAvatar" title="Profile">
+            <img src="img/profile_picture.jpeg" alt="Profile" onerror="this.remove()" />
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <!-- HOME -->
+        <section class="view active" id="view-home">
+          <div class="hero">
+            <div class="hero-inner">
+              <div class="hero-label">Beatify Music</div>
+              <h1>500 Hindi Hits.<br/>One Player.</h1>
+              <p>Stream Bollywood, Punjabi &amp; classic Hindi — plus live FM radio. Built for music lovers.</p>
+              <div class="hero-ctas">
+                <button class="btn-play-lg" id="heroPlay">
+                  <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  Play Hits
+                </button>
+                <button class="btn-outline-lg" data-view="radio">Live FM Radio</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mood-row" id="moodRow"></div>
+
+          <div class="section">
+            <div class="section-head">
+              <h2>Made for You</h2>
+              <button class="see-all" data-view="library">Show all</button>
+            </div>
+            <div class="card-row" id="madeForYou"></div>
+          </div>
+
+          <div class="section">
+            <div class="section-head">
+              <h2>Trending Hindi</h2>
+              <span class="online-status">Online catalog · 500 tracks</span>
+            </div>
+            <div class="track-table">
+              <div class="track-header">
+                <span>#</span><span>Title</span><span>Album</span><span>Time</span><span></span>
+              </div>
+              <div id="trendingTracks"></div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-head">
+              <h2>New from the Web</h2>
+              <button class="see-all" id="refreshOnline">Refresh</button>
+            </div>
+            <div class="card-row" id="onlineSongs">
+              <div class="loading-spinner"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SEARCH -->
+        <section class="view" id="view-search">
+          <div style="padding-top: 24px;">
+            <h2 style="margin-bottom: 16px; font-size: 1.6rem;">Search</h2>
+            <div class="mood-row" id="searchMoods"></div>
+            <div id="searchResults">
+              <div class="empty-state">
+                <h3>Find your next favourite</h3>
+                <p>Search across 500 Hindi songs — or browse moods above.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- LIBRARY -->
+        <section class="view" id="view-library">
+          <div style="padding-top: 24px;">
+            <div class="section-head">
+              <h2 id="libraryTitle">Your Library</h2>
+              <button class="btn-pill" id="shuffleLibrary">Shuffle play</button>
+            </div>
+            <div class="track-table">
+              <div class="track-header">
+                <span>#</span><span>Title</span><span>Album</span><span>Time</span><span></span>
+              </div>
+              <div id="libraryTracks"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- RADIO -->
+        <section class="view" id="view-radio">
+          <div style="padding-top: 24px;">
+            <div class="section-head">
+              <h2>Live FM Radio</h2>
+              <span class="online-status">Streaming live audio</span>
+            </div>
+            <p style="color: var(--text-sub); margin-bottom: 24px; max-width: 520px;">
+              Tune into Hindi, Bollywood &amp; Indian stations — live, 24/7. Tap any station to start listening.
+            </p>
+            <div class="radio-grid" id="radioGrid"></div>
+          </div>
+        </section>
+
+        <!-- PREMIUM -->
+        <section class="view" id="view-premium">
+          <div class="pricing-hero">
+            <h1>Listen without limits.</h1>
+            <p>Upgrade Beatify Premium — earn from subscribers on your platform.</p>
+          </div>
+          <div class="pricing-grid">
+            <div class="price-card">
+              <div class="plan-name">Free</div>
+              <div class="price">$0 <small>/ month</small></div>
+              <ul>
+                <li>500 Hindi songs catalog</li>
+                <li>FM Radio access</li>
+                <li>Standard audio quality</li>
+                <li>Ads between tracks</li>
+              </ul>
+              <button class="btn-plan" disabled>Current plan</button>
+            </div>
+            <div class="price-card featured">
+              <div class="plan-name">Premium</div>
+              <div class="price">$30 <small>/ month</small></div>
+              <ul>
+                <li>Ad-free listening</li>
+                <li>High quality audio (320kbps)</li>
+                <li>Offline downloads unlock</li>
+                <li>Premium-only tracks</li>
+                <li>Skip unlimited</li>
+              </ul>
+              <button class="btn-plan" data-plan="premium" data-price="119">Get Premium</button>
+            </div>
+            <div class="price-card">
+              <div class="plan-name">Family</div>
+              <div class="price">$70 <small>/ month</small></div>
+              <ul>
+                <li>Up to 6 accounts</li>
+                <li>All Premium benefits</li>
+                <li>Family Mix playlists</li>
+                <li>Parental controls</li>
+                <li>Block explicit content</li>
+              </ul>
+              <button class="btn-plan" data-plan="family" data-price="179">Get Family</button>
+            </div>
+          </div>
+
+          <div class="section" style="max-width: 700px; margin: 0 auto;">
+            <div class="section-head"><h2>Creator earnings</h2></div>
+            <p style="color: var(--text-sub); margin-bottom: 16px;">
+              Payments you collect from Premium &amp; Family plans can power your music business.
+              Demo checkout below — connect Razorpay / Stripe for live UPI, cards &amp; wallets.
+            </p>
+            <div id="earningsPanel" style="background: var(--surface-2); border-radius: 12px; padding: 20px;">
+              <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+                <div>
+                  <div style="font-size: 0.75rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.06em;">Total earned (demo)</div>
+                  <div style="font-size: 2rem; font-weight: 700; color: var(--accent);" id="totalEarned">$0</div>
+                </div>
+                <div>
+                  <div style="font-size: 0.75rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.06em;">Subscribers</div>
+                  <div style="font-size: 2rem; font-weight: 700;" id="subCount">0</div>
+                </div>
+                <div>
+                  <div style="font-size: 0.75rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.06em;">Your plan</div>
+                  <div style="font-size: 1.2rem; font-weight: 700;" id="currentPlanLabel">Free</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Player -->
+    <footer class="player">
+      <div class="now-playing">
+        <div class="np-art" id="npArt">
+          <div class="cover-fallback" style="background: hsl(160, 40%, 30%);">♪</div>
+        </div>
+        <div class="np-meta">
+          <div class="np-title" id="npTitle">Select a song</div>
+          <div class="np-artist" id="npArtist">Beatify</div>
+        </div>
+        <button class="np-like" id="btnLike" title="Like" aria-label="Like">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.7-9.3C.8 8.5 2.5 5.5 5.5 5c1.8-.3 3.5.6 4.5 2 1-1.4 2.7-2.3 4.5-2 3 .5 4.7 3.5 3.2 6.7C19.5 16.4 12 21 12 21z"/></svg>
+        </button>
+      </div>
+
+      <div class="player-controls">
+        <div class="ctrl-btns">
+          <button class="ctrl-btn" id="btnShuffle" title="Shuffle" aria-label="Shuffle">
+            <svg viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>
+          </button>
+          <button class="ctrl-btn" id="btnPrev" title="Previous" aria-label="Previous">
+            <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6V6zm3.5 6l8.5 6V6l-8.5 6z"/></svg>
+          </button>
+          <button class="ctrl-play" id="btnPlay" title="Play" aria-label="Play">
+            <svg id="iconPlay" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg id="iconPause" viewBox="0 0 24 24" style="display:none"><path d="M6 5h4v14H6V5zm8 0h4v14h-4V5z"/></svg>
+          </button>
+          <button class="ctrl-btn" id="btnNext" title="Next" aria-label="Next">
+            <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6h2v12h-2V6z"/></svg>
+          </button>
+          <button class="ctrl-btn" id="btnRepeat" title="Repeat" aria-label="Repeat">
+            <svg viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v5z"/></svg>
+          </button>
+        </div>
+        <div class="progress-row">
+          <span class="time" id="timeCurrent">0:00</span>
+          <div class="progress-bar" id="progressBar" role="slider" aria-label="Seek" tabindex="0">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <span class="time end" id="timeTotal">0:00</span>
+        </div>
+      </div>
+
+      <div class="player-extra">
+        <span class="quality-badge" id="qualityBadge">STD</span>
+        <div class="vol-wrap">
+          <button class="ctrl-btn" id="btnMute" title="Mute" aria-label="Mute">
+            <svg viewBox="0 0 24 24"><path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2a4.5 4.5 0 00-2.5-4v8a4.5 4.5 0 002.5-4zM14 3.2v2.1a7 7 0 010 13.4v2.1a9 9 0 000-17.6z"/></svg>
+          </button>
+          <div class="volume-bar" id="volumeBar">
+            <div class="volume-fill" id="volumeFill" style="width: 80%;"></div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Mobile nav -->
+  <nav class="mobile-nav">
+    <button data-view="home" class="active">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.5 3.25a.75.75 0 0 0-1 0L3.5 10.5V21a1 1 0 0 0 1 1h5v-6h5v6h5a1 1 0 0 0 1-1v-10.5l-8-7.25z"/></svg>
+      Home
+    </button>
+    <button data-view="search">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10.5 3a7.5 7.5 0 015.9 12.1l4.25 4.25-1.4 1.4-4.25-4.25A7.5 7.5 0 1110.5 3zm0 2a5.5 5.5 0 100 11 5.5 5.5 0 000-11z"/></svg>
+      Search
+    </button>
+    <button data-view="radio">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 8A1.5 1.5 0 003 9.5v9A1.5 1.5 0 004.5 20h15a1.5 1.5 0 001.5-1.5v-9A1.5 1.5 0 0019.5 8H9.4l8.7-4.35-.9-1.8L4.5 8zm3.5 8.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
+      Radio
+    </button>
+    <button data-view="premium">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7L12 16.8 5.7 20.6 8 13.6 2 9.2h7.6L12 2z"/></svg>
+      Premium
+    </button>
+  </nav>
+
+  <!-- Payment modal -->
+  <div class="modal-overlay" id="payModal" role="dialog" aria-modal="true" aria-labelledby="payTitle">
+    <div class="modal">
+      <div id="payFormView">
+        <h2 id="payTitle">Complete payment</h2>
+        <p class="modal-sub">Secure demo checkout · UPI · Cards · Wallets</p>
+
+        <div class="pay-methods">
+          <button class="pay-method active" data-method="upi">UPI</button>
+          <button class="pay-method" data-method="card">Card</button>
+          <button class="pay-method" data-method="wallet">Wallet</button>
+        </div>
+
+        <div class="form-group">
+          <label>Full name</label>
+          <input type="text" id="payName" placeholder="Your name" autocomplete="name" />
+        </div>
+        <div class="form-group">
+          <label>Email / Phone</label>
+          <input type="text" id="payContact" placeholder="email@or.phone" autocomplete="email" />
+        </div>
+
+        <div id="upiFields">
+          <div class="form-group">
+            <label>UPI ID</label>
+            <input type="text" id="payUpi" placeholder="name@upi" />
+          </div>
+        </div>
+
+        <div id="cardFields" style="display:none;">
+          <div class="form-group">
+            <label>Card number</label>
+            <input type="text" id="payCard" placeholder="XXXX XXXX XXXX XXXX" maxlength="19" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Expiry</label>
+              <input type="text" id="payExp" placeholder="MM/YY" maxlength="5" />
+            </div>
+            <div class="form-group">
+              <label>CVV</label>
+              <input type="password" id="payCvv" placeholder="•••" maxlength="4" />
+            </div>
+          </div>
+        </div>
+
+        <div id="walletFields" style="display:none;">
+          <div class="form-group">
+            <label>Wallet</label>
+            <select id="payWallet">
+              <option>Paytm</option>
+              <option>PhonePe</option>
+              <option>Amazon Pay</option>
+              <option>Google Pay</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; margin: 12px 0 4px; font-size: 0.9rem;">
+          <span style="color: var(--text-sub);">Amount</span>
+          <strong id="payAmount">₹119</strong>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn-cancel" id="payCancel">Cancel</button>
+          <button class="btn-pay" id="paySubmit">Pay now</button>
+        </div>
+      </div>
+
+      <div id="paySuccessView" class="pay-success" style="display:none;">
+        <div class="check">✓</div>
+        <h2>Payment successful!</h2>
+        <p class="modal-sub" id="paySuccessMsg">Welcome to Beatify Premium.</p>
+        <button class="btn-pay" id="payDone" style="margin-top: 16px;">Start listening</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <audio id="audioEngine" preload="metadata"></audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.7/dist/hls.min.js"></script>
+  <script src="js/songs-data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/radio.js"></script>
+  <script src="js/payment.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
